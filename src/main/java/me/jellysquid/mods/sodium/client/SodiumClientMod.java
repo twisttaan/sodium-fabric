@@ -41,16 +41,13 @@ public class SodiumClientMod implements ClientModInitializer {
 
         // Continue loading Sodium
 
-        ModContainer mod = FabricLoader.getInstance()
-                .getModContainer("sodiumre")
-                .orElseThrow(NullPointerException::new);
+        ModContainer mod = FabricLoader.getInstance().getModContainer("sodiumre").orElseThrow(NullPointerException::new);
 
-        MOD_VERSION = mod.getMetadata()
-                .getVersion()
-                .getFriendlyString();
+        MOD_VERSION = mod.getMetadata().getVersion().getFriendlyString();
 
         LOGGER = LogManager.getLogger("Sodium");
         CONFIG = loadConfig();
+
     }
 
     public static SodiumGameOptions options() {

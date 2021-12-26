@@ -1,7 +1,6 @@
 package me.jellysquid.mods.sodium.mixin.features.debug;
 
 import com.google.common.collect.Lists;
-import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.render.SodiumWorldRenderer;
 import me.jellysquid.mods.sodium.client.util.NativeBuffer;
 import net.minecraft.client.gui.hud.DebugHud;
@@ -21,11 +20,17 @@ public abstract class MixinDebugHud {
         throw new UnsupportedOperationException();
     }
 
+    private static String getFormattedVersionText() {
+        final String version = "Custom Build by tristan#0005";
+
+        return Formatting.LIGHT_PURPLE + version;
+    }
+
     @Redirect(method = "getRightText", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/Lists;newArrayList([Ljava/lang/Object;)Ljava/util/ArrayList;", remap = false))
     private ArrayList<String> redirectRightTextEarly(Object[] elements) {
         ArrayList<String> strings = Lists.newArrayList((String[]) elements);
         strings.add("");
-        strings.add("Sodium Renderer");
+        strings.add("Sodium RE");
         strings.add(Formatting.UNDERLINE + getFormattedVersionText());
 
         var renderer = SodiumWorldRenderer.instanceNullable();
@@ -45,21 +50,6 @@ public abstract class MixinDebugHud {
         }
 
         return strings;
-    }
-
-    private static String getFormattedVersionText() {
-        String version = SodiumClientMod.getVersion();
-        Formatting color;
-
-        if (version.endsWith("-dirty")) {
-            color = Formatting.RED;
-        } else if (version.contains("+rev.")) {
-            color = Formatting.LIGHT_PURPLE;
-        } else {
-            color = Formatting.GREEN;
-        }
-
-        return color + version;
     }
 
     private static String getNativeMemoryString() {

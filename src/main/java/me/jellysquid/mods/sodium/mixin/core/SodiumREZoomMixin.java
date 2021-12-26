@@ -1,7 +1,9 @@
+// Originally from Logical Zoom by LogcialGeekBoy
+// https://github.com/LogicalGeekBoy/logical_zoom
+
 package me.jellysquid.mods.sodium.mixin.core;
 
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
